@@ -11,6 +11,7 @@ import {
   Legend
 } from "../../vendor/recharts";
 import { connect } from "react-redux";
+import { getListings } from "../../store/selectors";
 
 export function Liquidity({ listings }) {
   return (
@@ -26,7 +27,11 @@ export function Liquidity({ listings }) {
           name="score"
           unit="km"
         />
-        <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+        <Tooltip
+          active
+          cursor={{ strokeDasharray: "3 3" }}
+          content={<TooltipContent />}
+        />
         <Legend />
         <Scatter name="A school" data={listings} fill="#8884d8" shape="star" />
       </ScatterChart>
@@ -34,8 +39,35 @@ export function Liquidity({ listings }) {
   );
 }
 
-const mapStateToProps = ({ listings }) => ({
-  listings: listings.entries
+export function TooltipContent({ payload }) {
+    if (!payload[0]) {
+      return null;
+    }
+    const data = payload[0].payload;
+  return (
+    <div className="tooltip-container">
+      <div>
+        <p className="tooltip-label">Name</p>
+        <p className="tooltip-value">{data.name}</p>
+      </div>
+      <div>
+        <p className="tooltip-label">Market Cap</p>
+        <p className="tooltip-value">{data.marketCAP}</p>
+      </div>
+      <div>
+        <p className="tooltip-label">Volume (24h)</p>
+        <p className="tooltip-value">{data.volume24}</p>
+      </div>
+      <div>
+        <p className="tooltip-label">Price Change (24h)</p>
+        <p className="tooltip-value">{data.priceChange24}</p>
+      </div>
+    </div>
+  );
+}
+
+const mapStateToProps = state => ({
+  listings: getListings(state)
 });
 
 export default connect(mapStateToProps)(Liquidity);

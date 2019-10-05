@@ -20,3 +20,23 @@
 .App-link {
   color: #09d3ac;
 }
+
+.tooltip-container {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 10px;
+  box-shadow: 3px 3px 7px grey;
+}
+
+.tooltip-label {
+  color: #4A4A4A;
+  opacity: 1;  
+  display: inline;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.tooltip-value {
+  color: #4A4A4A;
+  font-weight: normal;
+  display: inline;
+}

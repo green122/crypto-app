@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setListingsMaximum } from "../../store/filters";
 import TableListings from "../../components/Table/TableListings";
+import { getListings } from "../../store/selectors";
 
 export function Overview({ listings }) {
   return (
@@ -11,11 +11,8 @@ export function Overview({ listings }) {
   );
 }
 
-const mapStateToProps = ({ listings }) => ({
-  listings: listings.entries
+const mapStateToProps = state => ({
+  listings: getListings(state)
 });
 
-export default connect(
-  mapStateToProps,
-  { setListingsMaximum }
-)(Overview);
+export default connect(mapStateToProps)(Overview);

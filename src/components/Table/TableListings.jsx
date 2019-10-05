@@ -4,7 +4,7 @@ import { Table } from "semantic-ui-react";
 export default function TableListings({ listings }) {
     console.log(listings);
   return (
-    <Table celled>
+    <Table unstackable celled>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Rank</Table.HeaderCell>
