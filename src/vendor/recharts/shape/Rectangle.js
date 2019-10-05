@@ -67,7 +67,7 @@ const getRectangePath = (x, y, width, height, radius) => {
   return path;
 };
 
-@pureRender
+
 class Rectangle extends Component {
 
   static displayName = 'Rectangle';
@@ -186,4 +186,4 @@ class Rectangle extends Component {
   }
 }
 
-export default Rectangle;
+export default pureRender(Rectangle);

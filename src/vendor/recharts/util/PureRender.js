@@ -21,4 +21,5 @@ function shouldComponentUpdate(props, state) {
 export default function pureRenderDecorator(component) {
   // eslint-disable-next-line no-param-reassign
   component.prototype.shouldComponentUpdate = shouldComponentUpdate;
+  return component;
 }

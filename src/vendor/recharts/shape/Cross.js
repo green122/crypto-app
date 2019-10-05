@@ -1,17 +1,18 @@
 /**
  * @fileOverview Cross
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import pureRender from '../util/PureRender';
-import { isNumber } from '../util/DataUtils';
-import { PRESENTATION_ATTRIBUTES, getPresentationAttributes } from '../util/ReactUtils';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import pureRender from "../util/PureRender";
+import { isNumber } from "../util/DataUtils";
+import {
+  PRESENTATION_ATTRIBUTES,
+  getPresentationAttributes
+} from "../util/ReactUtils";
 
-@pureRender
 class Cross extends Component {
-
-  static displayName = 'Cross';
+  static displayName = "Cross";
 
   static propTypes = {
     ...PRESENTATION_ATTRIBUTES,
@@ -21,7 +22,7 @@ class Cross extends Component {
     height: PropTypes.number,
     top: PropTypes.number,
     left: PropTypes.number,
-    className: PropTypes.string,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -30,7 +31,7 @@ class Cross extends Component {
     top: 0,
     left: 0,
     width: 0,
-    height: 0,
+    height: 0
   };
 
   static getPath(x, y, width, height, top, left) {
@@ -38,22 +39,27 @@ class Cross extends Component {
   }
 
   render() {
-    const { x, y, width, height, top, left,
-      className } = this.props;
+    const { x, y, width, height, top, left, className } = this.props;
 
-    if (!isNumber(x) || !isNumber(y) || !isNumber(width) ||
-      !isNumber(height) || !isNumber(top) || !isNumber(left)) {
+    if (
+      !isNumber(x) ||
+      !isNumber(y) ||
+      !isNumber(width) ||
+      !isNumber(height) ||
+      !isNumber(top) ||
+      !isNumber(left)
+    ) {
       return null;
     }
 
     return (
       <path
         {...getPresentationAttributes(this.props)}
-        className={classNames('recharts-cross', className)}
+        className={classNames("recharts-cross", className)}
         d={this.constructor.getPath(x, y, width, height, top, left)}
       />
     );
   }
 }
 
-export default Cross;
+export default pureRender(Cross);

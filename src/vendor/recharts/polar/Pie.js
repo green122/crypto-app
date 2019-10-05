@@ -21,7 +21,6 @@ import { isNumber, getPercentValue, mathSign, interpolateNumber, uniqueId } from
 import { getValueByDataKey } from '../util/ChartUtils';
 import { warn } from '../util/LogUtils';
 
-@pureRender
 class Pie extends Component {
 
   static displayName = 'Pie';
@@ -519,4 +518,4 @@ class Pie extends Component {
   }
 }
 
-export default Pie;
+export default pureRender(Pie);

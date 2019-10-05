@@ -1,26 +1,28 @@
 /**
  * @fileOverview Dot
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import pureRender from '../util/PureRender';
-import { getPresentationAttributes, filterEventAttributes } from '../util/ReactUtils';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import pureRender from "../util/PureRender";
+import {
+  getPresentationAttributes,
+  filterEventAttributes
+} from "../util/ReactUtils";
 
-@pureRender
 class Dot extends Component {
-  static displayName = 'Dot';
+  static displayName = "Dot";
 
   static propTypes = {
     className: PropTypes.string,
     cx: PropTypes.number,
     cy: PropTypes.number,
-    r: PropTypes.number,
+    r: PropTypes.number
   };
 
   render() {
     const { cx, cy, r, className } = this.props;
-    const layerClass = classNames('recharts-dot', className);
+    const layerClass = classNames("recharts-dot", className);
 
     if (cx === +cx && cy === +cy && r === +r) {
       return (
@@ -39,4 +41,4 @@ class Dot extends Component {
   }
 }
 
-export default Dot;
+export default pureRender(Dot);

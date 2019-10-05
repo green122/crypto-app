@@ -16,7 +16,6 @@ import { PRESENTATION_ATTRIBUTES, EVENT_ATTRIBUTES, LEGEND_TYPES, TOOLTIP_TYPES,
 import { interpolateNumber } from '../util/DataUtils';
 import { getValueByDataKey } from '../util/ChartUtils';
 
-@pureRender
 class Funnel extends Component {
 
   static displayName = 'Funnel';
@@ -334,4 +333,4 @@ class Funnel extends Component {
   }
 }
 
-export default Funnel;
+export default pureRender(Funnel);

@@ -12,7 +12,6 @@ import { filterEventsOfChild, LEGEND_TYPES } from '../util/ReactUtils';
 const SIZE = 32;
 const ICON_TYPES = LEGEND_TYPES.filter(type => type !== 'none');
 
-@pureRender
 class DefaultLegendContent extends Component {
   static displayName = 'Legend';
 
@@ -167,4 +166,4 @@ class DefaultLegendContent extends Component {
   }
 }
 
-export default DefaultLegendContent;
+export default pureRender( DefaultLegendContent);

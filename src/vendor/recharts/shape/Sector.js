@@ -120,7 +120,6 @@ const getSectorWithCorner = ({ cx, cy, innerRadius, outerRadius, cornerRadius, f
   return path;
 };
 
-@pureRender
 class Sector extends Component {
 
   static displayName = 'Sector';
@@ -185,4 +184,4 @@ class Sector extends Component {
   }
 }
 
-export default Sector;
+export default pureRender(Sector);

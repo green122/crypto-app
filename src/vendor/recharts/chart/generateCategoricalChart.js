@@ -39,6 +39,7 @@ const originCoordinate = { x: 0, y: 0 };
 
 const generateCategoricalChart = ({
   chartName, GraphicalChild, eventType = 'axis', axisComponents, legendContent,
+  // eslint-disable-next-line  react/forbid-foreign-prop-types
   formatAxisMap, defaultProps, propTypes,
 }) => {
   class CategoricalChartWrapper extends Component {

@@ -109,7 +109,6 @@ const renderContent = (content, props) => {
   return React.createElement(DefaultTooltipContent, props);
 };
 
-@pureRender
 class Tooltip extends Component {
   static displayName = 'Tooltip';
 
@@ -222,4 +221,4 @@ class Tooltip extends Component {
   }
 }
 
-export default Tooltip;
+export default pureRender(Tooltip);

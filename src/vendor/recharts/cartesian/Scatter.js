@@ -19,7 +19,7 @@ import Cell from '../component/Cell';
 import { uniqueId, interpolateNumber, getLinearRegression } from '../util/DataUtils';
 import { getValueByDataKey, getCateCoordinateOfLine } from '../util/ChartUtils';
 
-@pureRender
+
 class Scatter extends Component {
 
   static displayName = 'Scatter';
@@ -157,7 +157,7 @@ class Scatter extends Component {
 
   state = { isAnimationFinished: false };
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { animationId, points } = this.props;
 
     if (nextProps.animationId !== animationId) {
@@ -385,4 +385,4 @@ class Scatter extends Component {
   }
 }
 
-export default Scatter;
+export default pureRender(Scatter);

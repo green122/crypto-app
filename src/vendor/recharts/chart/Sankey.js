@@ -310,7 +310,6 @@ const getPayloadOfTooltip = (el, type, nameKey) => {
   return [];
 };
 
-@pureRender
 class Sankey extends Component {
   static displayName = 'Sankey';
 
@@ -609,4 +608,4 @@ class Sankey extends Component {
   }
 }
 
-export default Sankey;
+export default pureRender(Sankey);

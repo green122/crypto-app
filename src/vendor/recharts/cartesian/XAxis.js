@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import pureRender from '../util/PureRender';
 import { SCALE_TYPES } from '../util/ReactUtils';
 
-@pureRender
 class XAxis extends Component {
 
   static displayName = 'XAxis';
@@ -86,4 +85,4 @@ class XAxis extends Component {
   }
 }
 
-export default XAxis;
+export default pureRender(XAxis);

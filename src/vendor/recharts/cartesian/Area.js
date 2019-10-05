@@ -17,7 +17,6 @@ import { isNumber, uniqueId, interpolateNumber } from '../util/DataUtils';
 import { getCateCoordinateOfLine, getValueByDataKey } from '../util/ChartUtils';
 
 
-@pureRender
 class Area extends Component {
 
   static displayName = 'Area';
@@ -493,4 +492,4 @@ class Area extends Component {
   }
 }
 
-export default Area;
+export default pureRender(Area);
