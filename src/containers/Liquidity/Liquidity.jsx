@@ -11,7 +11,9 @@ import {
   Legend
 } from "../../vendor/recharts";
 import { connect } from "react-redux";
-import { getListings } from "../../store/selectors";
+import { getListings, getListingsToView } from "../../store/selectors";
+import { injectConfig } from "../../HOC/injectConfig";
+import { mapFetchedDataToView } from "../../utils/mapping";
 
 export function Liquidity({ listings }) {
   return (
@@ -39,35 +41,27 @@ export function Liquidity({ listings }) {
   );
 }
 
-export function TooltipContent({ payload }) {
-    if (!payload[0]) {
-      return null;
-    }
-    const data = payload[0].payload;
+export function TooltipView({ payload, config }) {
+  if (!payload[0]) {
+    return null;
+  }
+  const data = mapFetchedDataToView(config)(payload[0].payload);  
   return (
     <div className="tooltip-container">
-      <div>
-        <p className="tooltip-label">Name</p>
-        <p className="tooltip-value">{data.name}</p>
-      </div>
-      <div>
-        <p className="tooltip-label">Market Cap</p>
-        <p className="tooltip-value">{data.marketCAP}</p>
-      </div>
-      <div>
-        <p className="tooltip-label">Volume (24h)</p>
-        <p className="tooltip-value">{data.volume24}</p>
-      </div>
-      <div>
-        <p className="tooltip-label">Price Change (24h)</p>
-        <p className="tooltip-value">{data.priceChange24}</p>
-      </div>
+      {config.tooltipFields.map(field => (
+        <div key={field}>
+          <p className="tooltip-label">{data[field].label}</p>
+          <p className="tooltip-value">{data[field].value}</p>
+        </div>
+      ))}
     </div>
   );
 }
+export const TooltipContent = injectConfig(TooltipView);
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => ({
   listings: getListings(state)
+  // listingsToView: getListingsToView(state, props)
 });
 
-export default connect(mapStateToProps)(Liquidity);
+export default injectConfig(connect(mapStateToProps)(Liquidity));

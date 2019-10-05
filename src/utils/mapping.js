@@ -1,20 +1,19 @@
 import get from "lodash/get";
 
-export const mapDataCoinMarket = {
-  rank: "cmc_rank",
-  name: "name",
-  priceUSD: ["quote", "USD", "price"],
-  priceChange24: ["quote", "USD", "percent_change_24h"],
-  marketCAP: ["quote", "USD", "market_cap"],
-  volume24: ["quote", "USD", "volume_24h"]
-};
-
-export function mapFetchedData(mapper) {
+export function mapFetchedData({ mapConfig }) {
   return data =>
-    Object.keys(mapper).reduce((result, key) => {
-      result[key] = get(data, mapper[key]);
+    Object.keys(mapConfig).reduce((result, key) => {
+      result[key] = get(data, mapConfig[key].getter);
       return result;
     }, {});
 }
 
-export default mapFetchedData(mapDataCoinMarket);
+export function mapFetchedDataToView({ mapConfig }) {
+  return data =>
+    Object.keys(mapConfig).reduce((result, key) => {
+      const { label, formatter } = mapConfig[key];
+      const value = formatter ? formatter(data[key]) : data[key];
+      result[key] = { label, value };
+      return result;
+    }, {});
+}

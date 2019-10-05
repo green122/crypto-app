@@ -39,8 +39,8 @@ app.get("/api", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+  res.sendFile(path.resolve(__dirname, "../", "build", "index.html"));
 });
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.resolve(__dirname, "../", "build", "static")));
 app.listen(port, () => console.log(`listening on port ${port}!`));
