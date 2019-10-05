@@ -1,28 +1,33 @@
 import React, { useEffect } from "react";
-import { loadListings } from "./store/listings";
+import { initApp } from "./store/app";
 import { connect } from "react-redux";
 import { Route } from "react-router-dom";
+import { Container } from "semantic-ui-react";
 import { Overview, Liquidity } from "./containers";
 import Navigation from "./components/Navigation/Navigation";
 import MaximumDropdown from "./components/MaximumDropdown/MaximumDropdown";
+import Pagination from "./components/Pagination/Pagination";
+import { setListingsMaximum } from "./store/filters";
+import './App.css';
 
-function App({ loadListings }) {
+function App({ initApp, setListingsMaximum }) {
   useEffect(() => {
-    loadListings();
-  }, [loadListings]);
+    initApp();
+  }, [initApp]);
 
   return (
-    <div className="App">
+    <Container fluid>
       <Navigation>
-        <MaximumDropdown setMaximum={console.log} />
+        <MaximumDropdown setMaximum={setListingsMaximum} />
       </Navigation>
       <Route path="/" exact component={Overview} />
       <Route path="/liquidity" exact component={Liquidity} />
-    </div>
+      <Pagination />
+    </Container>
   );
 }
 
 export default connect(
   null,
-  { loadListings }
+  { initApp, setListingsMaximum }
 )(App);
