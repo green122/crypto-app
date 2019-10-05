@@ -19,8 +19,8 @@ export default handleActions(
   {
     [LOAD_LISTINGS_SUCCESS]: (state, action) => ({
       ...state,
-      ...action.payload
+      entries: action.payload
     })
   },
-  {}
+  {entries: []}
 );
