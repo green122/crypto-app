@@ -50,11 +50,11 @@ class Text extends Component {
     wordsByLines: [],
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.updateWordsByLines(this.props, true);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const needCalculate = (
       this.props.children !== nextProps.children ||
       this.props.style !== nextProps.style

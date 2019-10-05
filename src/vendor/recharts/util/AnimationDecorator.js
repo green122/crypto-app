@@ -19,7 +19,7 @@ export default function (WrappedComponent) {
       animationId: 0,
     };
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
       const { animationId } = this.state;
 
       if (this.props.data !== nextProps.data) {
