@@ -1,4 +1,4 @@
-import { createActions, handleActions } from "redux-actions";
+import { handleActions } from "redux-actions";
 import { result } from "../fixture";
 
 export const LOAD_LISTINGS_START = "LOAD_LISTINGS_START";
@@ -15,7 +15,12 @@ export function loadListings(start = 0, end = maxListings) {
   };
 }
 
-
-export default handleActions({
-    [LOAD_LISTINGS_SUCCESS]: () => result.data
-}, {});
+export default handleActions(
+  {
+    [LOAD_LISTINGS_SUCCESS]: (state, action) => ({
+      ...state,
+      ...action.payload
+    })
+  },
+  {}
+);
