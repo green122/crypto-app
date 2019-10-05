@@ -1,16 +1,17 @@
 /**
  * @fileOverview Polar Grid
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import pureRender from '../util/PureRender';
-import { polarToCartesian } from '../util/PolarUtils';
-import { PRESENTATION_ATTRIBUTES, getPresentationAttributes } from '../util/ReactUtils';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import pureRender from "../util/PureRender";
+import { polarToCartesian } from "../util/PolarUtils";
+import {
+  PRESENTATION_ATTRIBUTES,
+  getPresentationAttributes
+} from "../util/ReactUtils";
 
-@pureRender
 class PolarGrid extends Component {
-
-  static displayName = 'PolarGrid';
+  static displayName = "PolarGrid";
 
   static propTypes = {
     ...PRESENTATION_ATTRIBUTES,
@@ -21,7 +22,7 @@ class PolarGrid extends Component {
 
     polarAngles: PropTypes.arrayOf(PropTypes.number),
     polarRadius: PropTypes.arrayOf(PropTypes.number),
-    gridType: PropTypes.oneOf(['polygon', 'circle']),
+    gridType: PropTypes.oneOf(["polygon", "circle"])
   };
 
   static defaultProps = {
@@ -29,13 +30,13 @@ class PolarGrid extends Component {
     cy: 0,
     innerRadius: 0,
     outerRadius: 0,
-    gridType: 'polygon',
+    gridType: "polygon"
   };
 
   getPolygonPath(radius) {
     const { cx, cy, polarAngles } = this.props;
 
-    let path = '';
+    let path = "";
 
     polarAngles.forEach((angle, i) => {
       const point = polarToCartesian(cx, cy, radius, angle);
@@ -46,7 +47,7 @@ class PolarGrid extends Component {
         path += `M ${point.x},${point.y}`;
       }
     });
-    path += 'Z';
+    path += "Z";
 
     return path;
   }
@@ -58,31 +59,31 @@ class PolarGrid extends Component {
   renderPolarAngles() {
     const { cx, cy, innerRadius, outerRadius, polarAngles } = this.props;
 
-    if (!polarAngles || !polarAngles.length) { return null; }
+    if (!polarAngles || !polarAngles.length) {
+      return null;
+    }
     const props = {
-      stroke: '#ccc',
-      ...getPresentationAttributes(this.props),
+      stroke: "#ccc",
+      ...getPresentationAttributes(this.props)
     };
 
     return (
       <g className="recharts-polar-grid-angle">
-        {
-          polarAngles.map((entry, i) => {
-            const start = polarToCartesian(cx, cy, innerRadius, entry);
-            const end = polarToCartesian(cx, cy, outerRadius, entry);
+        {polarAngles.map((entry, i) => {
+          const start = polarToCartesian(cx, cy, innerRadius, entry);
+          const end = polarToCartesian(cx, cy, outerRadius, entry);
 
-            return (
-              <line
-                {...props}
-                key={`line-${i}`}
-                x1={start.x}
-                y1={start.y}
-                x2={end.x}
-                y2={end.y}
-              />
-            );
-          })
-        }
+          return (
+            <line
+              {...props}
+              key={`line-${i}`}
+              x1={start.x}
+              y1={start.y}
+              x2={end.x}
+              y2={end.y}
+            />
+          );
+        })}
       </g>
     );
   }
@@ -97,10 +98,10 @@ class PolarGrid extends Component {
   renderConcentricCircle(radius, index, extraProps) {
     const { cx, cy } = this.props;
     const props = {
-      stroke: '#ccc',
+      stroke: "#ccc",
       ...getPresentationAttributes(this.props),
-      fill: 'none',
-      ...extraProps,
+      fill: "none",
+      ...extraProps
     };
 
     return (
@@ -124,10 +125,10 @@ class PolarGrid extends Component {
    */
   renderConcentricPolygon(radius, index, extraProps) {
     const props = {
-      stroke: '#ccc',
+      stroke: "#ccc",
       ...getPresentationAttributes(this.props),
-      fill: 'none',
-      ...extraProps,
+      fill: "none",
+      ...extraProps
     };
 
     return (
@@ -148,17 +149,17 @@ class PolarGrid extends Component {
   renderConcentricPath() {
     const { polarRadius, gridType } = this.props;
 
-    if (!polarRadius || !polarRadius.length) { return null; }
+    if (!polarRadius || !polarRadius.length) {
+      return null;
+    }
 
     return (
       <g className="recharts-polar-grid-concentric">
-        {
-          polarRadius.map((entry, i) => (
-            gridType === 'circle' ?
-              this.renderConcentricCircle(entry, i) :
-              this.renderConcentricPolygon(entry, i)
-          ))
-        }
+        {polarRadius.map((entry, i) =>
+          gridType === "circle"
+            ? this.renderConcentricCircle(entry, i)
+            : this.renderConcentricPolygon(entry, i)
+        )}
       </g>
     );
   }
@@ -166,7 +167,9 @@ class PolarGrid extends Component {
   render() {
     const { outerRadius } = this.props;
 
-    if (outerRadius <= 0) { return null; }
+    if (outerRadius <= 0) {
+      return null;
+    }
 
     return (
       <g className="recharts-polar-grid">
@@ -177,4 +180,4 @@ class PolarGrid extends Component {
   }
 }
 
-export default PolarGrid;
+export default pureRender(PolarGrid);

@@ -1,54 +1,73 @@
 /**
  * @fileOverview Radar
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Animate from 'react-smooth';
-import classNames from 'classnames';
-import _ from 'lodash';
-import { interpolateNumber } from '../util/DataUtils';
-import pureRender from '../util/PureRender';
-import { PRESENTATION_ATTRIBUTES, LEGEND_TYPES, TOOLTIP_TYPES, filterEventAttributes,
-  getPresentationAttributes, isSsr } from '../util/ReactUtils';
-import { polarToCartesian } from '../util/PolarUtils';
-import { getValueByDataKey } from '../util/ChartUtils';
-import Polygon from '../shape/Polygon';
-import Dot from '../shape/Dot';
-import Layer from '../container/Layer';
-import LabelList from '../component/LabelList';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Animate from "react-smooth";
+import classNames from "classnames";
+import _ from "lodash";
+import { interpolateNumber } from "../util/DataUtils";
+import pureRender from "../util/PureRender";
+import {
+  PRESENTATION_ATTRIBUTES,
+  LEGEND_TYPES,
+  TOOLTIP_TYPES,
+  filterEventAttributes,
+  getPresentationAttributes,
+  isSsr
+} from "../util/ReactUtils";
+import { polarToCartesian } from "../util/PolarUtils";
+import { getValueByDataKey } from "../util/ChartUtils";
+import Polygon from "../shape/Polygon";
+import Dot from "../shape/Dot";
+import Layer from "../container/Layer";
+import LabelList from "../component/LabelList";
 
-@pureRender
 class Radar extends Component {
-
-  static displayName = 'Radar';
+  static displayName = "Radar";
 
   static propTypes = {
     ...PRESENTATION_ATTRIBUTES,
     className: PropTypes.string,
-    dataKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]).isRequired,
+    dataKey: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+      PropTypes.func
+    ]).isRequired,
     angleAxisId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     radiusAxisId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-    points: PropTypes.arrayOf(PropTypes.shape({
-      x: PropTypes.number,
-      y: PropTypes.number,
-      cx: PropTypes.number,
-      cy: PropTypes.number,
-      angle: PropTypes.number,
-      radius: PropTypes.number,
-      value: PropTypes.number,
-      payload: PropTypes.object,
-    })),
+    points: PropTypes.arrayOf(
+      PropTypes.shape({
+        x: PropTypes.number,
+        y: PropTypes.number,
+        cx: PropTypes.number,
+        cy: PropTypes.number,
+        angle: PropTypes.number,
+        radius: PropTypes.number,
+        value: PropTypes.number,
+        payload: PropTypes.object
+      })
+    ),
     shape: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
     activeDot: PropTypes.oneOfType([
-      PropTypes.object, PropTypes.element, PropTypes.func, PropTypes.bool,
+      PropTypes.object,
+      PropTypes.element,
+      PropTypes.func,
+      PropTypes.bool
     ]),
     // whether have dot in poly line
     dot: PropTypes.oneOfType([
-      PropTypes.object, PropTypes.element, PropTypes.func, PropTypes.bool,
+      PropTypes.object,
+      PropTypes.element,
+      PropTypes.func,
+      PropTypes.bool
     ]),
     label: PropTypes.oneOfType([
-      PropTypes.element, PropTypes.func, PropTypes.object, PropTypes.bool,
+      PropTypes.element,
+      PropTypes.func,
+      PropTypes.object,
+      PropTypes.bool
     ]),
     legendType: PropTypes.oneOf(LEGEND_TYPES),
     tooltipType: PropTypes.oneOf(TOOLTIP_TYPES),
@@ -63,7 +82,13 @@ class Radar extends Component {
     animationId: PropTypes.number,
     animationBegin: PropTypes.number,
     animationDuration: PropTypes.number,
-    animationEasing: PropTypes.oneOf(['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear']),
+    animationEasing: PropTypes.oneOf([
+      "ease",
+      "ease-in",
+      "ease-out",
+      "ease-in-out",
+      "linear"
+    ])
   };
 
   static defaultProps = {
@@ -72,14 +97,20 @@ class Radar extends Component {
     hide: false,
     activeDot: true,
     dot: false,
-    legendType: 'rect',
+    legendType: "rect",
     isAnimationActive: !isSsr(),
     animationBegin: 0,
     animationDuration: 1500,
-    animationEasing: 'ease',
+    animationEasing: "ease"
   };
 
-  static getComposedData = ({ radiusAxis, angleAxis, displayedData, dataKey, bandSize }) => {
+  static getComposedData = ({
+    radiusAxis,
+    angleAxis,
+    displayedData,
+    dataKey,
+    bandSize
+  }) => {
     const { cx, cy } = angleAxis;
     const points = displayedData.map((entry, i) => {
       const name = getValueByDataKey(entry, angleAxis.dataKey, i);
@@ -88,8 +119,13 @@ class Radar extends Component {
       const radius = radiusAxis.scale(value);
       return {
         ...polarToCartesian(cx, cy, radius, angle),
-        name, value, cx, cy, radius, angle,
-        payload: entry,
+        name,
+        value,
+        cx,
+        cy,
+        radius,
+        angle,
+        payload: entry
       };
     });
 
@@ -106,7 +142,7 @@ class Radar extends Component {
     }
   }
 
-  cachePrevData = (points) => {
+  cachePrevData = points => {
     this.setState({ prevPoints: points });
   };
 
@@ -129,7 +165,7 @@ class Radar extends Component {
     }
   };
 
-  handleMouseEnter = (e) => {
+  handleMouseEnter = e => {
     const { onMouseEnter } = this.props;
 
     if (onMouseEnter) {
@@ -137,7 +173,7 @@ class Radar extends Component {
     }
   };
 
-  handleMouseLeave = (e) => {
+  handleMouseLeave = e => {
     const { onMouseLeave } = this.props;
 
     if (onMouseLeave) {
@@ -174,7 +210,7 @@ class Radar extends Component {
         cx: entry.x,
         cy: entry.y,
         index: i,
-        payload: entry,
+        payload: entry
       };
 
       return this.constructor.renderDotItem(dot, dotProps);
@@ -212,8 +248,14 @@ class Radar extends Component {
   }
 
   renderPolygonWithAnimation() {
-    const { points, isAnimationActive, animationBegin, animationDuration,
-      animationEasing, animationId } = this.props;
+    const {
+      points,
+      isAnimationActive,
+      animationBegin,
+      animationDuration,
+      animationEasing,
+      animationId
+    } = this.props;
     const { prevPoints } = this.state;
 
     return (
@@ -228,36 +270,37 @@ class Radar extends Component {
         onAnimationEnd={this.handleAnimationEnd}
         onAnimationStart={this.handleAnimationStart}
       >
-        {
-          ({ t }) => {
-            const prevPointsDiffFactor = prevPoints && prevPoints.length / points.length;
-            const stepData = points.map((entry, index) => {
-              const prev = prevPoints && prevPoints[Math.floor(index * prevPointsDiffFactor)];
+        {({ t }) => {
+          const prevPointsDiffFactor =
+            prevPoints && prevPoints.length / points.length;
+          const stepData = points.map((entry, index) => {
+            const prev =
+              prevPoints &&
+              prevPoints[Math.floor(index * prevPointsDiffFactor)];
 
-              if (prev) {
-                const interpolatorX = interpolateNumber(prev.x, entry.x);
-                const interpolatorY = interpolateNumber(prev.y, entry.y);
-
-                return {
-                  ...entry,
-                  x: interpolatorX(t),
-                  y: interpolatorY(t),
-                };
-              }
-
-              const interpolatorX = interpolateNumber(entry.cx, entry.x);
-              const interpolatorY = interpolateNumber(entry.cy, entry.y);
+            if (prev) {
+              const interpolatorX = interpolateNumber(prev.x, entry.x);
+              const interpolatorY = interpolateNumber(prev.y, entry.y);
 
               return {
                 ...entry,
                 x: interpolatorX(t),
-                y: interpolatorY(t),
+                y: interpolatorY(t)
               };
-            });
+            }
 
-            return this.renderPolygonStatically(stepData);
-          }
-        }
+            const interpolatorX = interpolateNumber(entry.cx, entry.x);
+            const interpolatorY = interpolateNumber(entry.cy, entry.y);
+
+            return {
+              ...entry,
+              x: interpolatorX(t),
+              y: interpolatorY(t)
+            };
+          });
+
+          return this.renderPolygonStatically(stepData);
+        }}
       </Animate>
     );
   }
@@ -266,8 +309,12 @@ class Radar extends Component {
     const { points, isAnimationActive } = this.props;
     const { prevPoints } = this.state;
 
-    if (isAnimationActive && points && points.length &&
-      (!prevPoints || !_.isEqual(prevPoints, points))) {
+    if (
+      isAnimationActive &&
+      points &&
+      points.length &&
+      (!prevPoints || !_.isEqual(prevPoints, points))
+    ) {
       return this.renderPolygonWithAnimation();
     }
 
@@ -277,10 +324,12 @@ class Radar extends Component {
   render() {
     const { hide, className, points, isAnimationActive } = this.props;
 
-    if (hide || !points || !points.length) { return null; }
+    if (hide || !points || !points.length) {
+      return null;
+    }
 
     const { isAnimationFinished } = this.state;
-    const layerClass = classNames('recharts-radar', className);
+    const layerClass = classNames("recharts-radar", className);
 
     return (
       <Layer className={layerClass}>
@@ -292,4 +341,4 @@ class Radar extends Component {
   }
 }
 
-export default Radar;
+export default pureRender(Radar);

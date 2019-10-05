@@ -16,7 +16,6 @@ import { PRESENTATION_ATTRIBUTES } from '../util/ReactUtils';
 import Rectangle from '../shape/Rectangle';
 
 
-@pureRender
 class ReferenceArea extends Component {
 
   static displayName = 'ReferenceArea';
@@ -134,4 +133,4 @@ class ReferenceArea extends Component {
   }
 }
 
-export default ReferenceArea;
+export default pureRender(ReferenceArea);

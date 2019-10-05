@@ -36,7 +36,6 @@ const renderContent = (content, props) => {
 const EPS = 1;
 const ICON_TYPES = LEGEND_TYPES.filter(type => type !== 'none');
 
-@pureRender
 class Legend extends Component {
   static displayName = 'Legend';
 
@@ -199,4 +198,4 @@ class Legend extends Component {
   }
 }
 
-export default Legend;
+export default pureRender(Legend);

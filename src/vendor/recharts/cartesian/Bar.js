@@ -18,7 +18,6 @@ import { PRESENTATION_ATTRIBUTES, EVENT_ATTRIBUTES, LEGEND_TYPES, TOOLTIP_TYPES,
 import { getCateCoordinateOfBar, getValueByDataKey, truncateByDomain, getBaseValueOfBar,
   findPositionOfBar } from '../util/ChartUtils';
 
-@pureRender
 class Bar extends Component {
 
   static displayName = 'Bar';
@@ -397,4 +396,4 @@ class Bar extends Component {
   }
 }
 
-export default Bar;
+export default pureRender(Bar);

@@ -14,7 +14,6 @@ const defaultFormatter = value => (
     value
 );
 
-@pureRender
 class DefaultTooltipContent extends Component {
 
   static displayName = 'DefaultTooltipContent';
@@ -126,4 +125,4 @@ class DefaultTooltipContent extends Component {
   }
 }
 
-export default DefaultTooltipContent;
+export default pureRender(DefaultTooltipContent);

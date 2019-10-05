@@ -17,7 +17,7 @@ import { PRESENTATION_ATTRIBUTES, EVENT_ATTRIBUTES, LEGEND_TYPES, TOOLTIP_TYPES,
   getPresentationAttributes, isSsr, findAllByType } from '../util/ReactUtils';
 import { getCateCoordinateOfLine, getValueByDataKey } from '../util/ChartUtils';
 
-@pureRender
+
 class Line extends Component {
 
   static displayName = 'Line';
@@ -417,4 +417,4 @@ class Line extends Component {
   }
 }
 
-export default Line;
+export default pureRender(Line);

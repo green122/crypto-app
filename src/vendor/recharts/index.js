@@ -1,58 +1,111 @@
-import './polyfill';
+import "./polyfill";
 
-export Surface from './container/Surface';
-export Layer from './container/Layer';
+import Surface from "./container/Surface";
+import Layer from "./container/Layer";
 
-export Legend from './component/Legend';
-export Tooltip from './component/Tooltip';
-export ResponsiveContainer from './component/ResponsiveContainer';
-export Cell from './component/Cell';
-export Text from './component/Text';
-export Label from './component/Label';
-export LabelList from './component/LabelList';
-export Customized from './component/Customized';
+import Legend from "./component/Legend";
+import Tooltip from "./component/Tooltip";
+import ResponsiveContainer from "./component/ResponsiveContainer";
+import Cell from "./component/Cell";
+import Text from "./component/Text";
+import Label from "./component/Label";
+import LabelList from "./component/LabelList";
+import Customized from "./component/Customized";
 
-export Sector from './shape/Sector';
-export Curve from './shape/Curve';
-export Rectangle from './shape/Rectangle';
-export Polygon from './shape/Polygon';
-export Dot from './shape/Dot';
-export Cross from './shape/Cross';
-export Symbols from './shape/Symbols';
+import Sector from "./shape/Sector";
+import Curve from "./shape/Curve";
+import Rectangle from "./shape/Rectangle";
+import Polygon from "./shape/Polygon";
+import Dot from "./shape/Dot";
+import Cross from "./shape/Cross";
+import Symbols from "./shape/Symbols";
 
-export PolarGrid from './polar/PolarGrid';
-export PolarRadiusAxis from './polar/PolarRadiusAxis';
-export PolarAngleAxis from './polar/PolarAngleAxis';
-export Pie from './polar/Pie';
-export Radar from './polar/Radar';
-export RadialBar from './polar/RadialBar';
+import PolarGrid from "./polar/PolarGrid";
+import PolarRadiusAxis from "./polar/PolarRadiusAxis";
+import PolarAngleAxis from "./polar/PolarAngleAxis";
+import Pie from "./polar/Pie";
+import Radar from "./polar/Radar";
+import RadialBar from "./polar/RadialBar";
 
-export Brush from './cartesian/Brush';
-export ReferenceLine from './cartesian/ReferenceLine';
-export ReferenceDot from './cartesian/ReferenceDot';
-export ReferenceArea from './cartesian/ReferenceArea';
-export CartesianAxis from './cartesian/CartesianAxis';
-export CartesianGrid from './cartesian/CartesianGrid';
-export Line from './cartesian/Line';
-export Area from './cartesian/Area';
-export Bar from './cartesian/Bar';
-export Scatter from './cartesian/Scatter';
-export XAxis from './cartesian/XAxis';
-export YAxis from './cartesian/YAxis';
-export ZAxis from './cartesian/ZAxis';
-export ErrorBar from './cartesian/ErrorBar';
+import Brush from "./cartesian/Brush";
+import ReferenceLine from "./cartesian/ReferenceLine";
+import ReferenceDot from "./cartesian/ReferenceDot";
+import ReferenceArea from "./cartesian/ReferenceArea";
+import CartesianAxis from "./cartesian/CartesianAxis";
+import CartesianGrid from "./cartesian/CartesianGrid";
+import Line from "./cartesian/Line";
+import Area from "./cartesian/Area";
+import Bar from "./cartesian/Bar";
+import Scatter from "./cartesian/Scatter";
+import XAxis from "./cartesian/XAxis";
+import YAxis from "./cartesian/YAxis";
+import ZAxis from "./cartesian/ZAxis";
+import ErrorBar from "./cartesian/ErrorBar";
 
-export LineChart from './chart/LineChart';
-export BarChart from './chart/BarChart';
-export PieChart from './chart/PieChart';
-export Treemap from './chart/Treemap';
-export Sankey from './chart/Sankey';
-export RadarChart from './chart/RadarChart';
-export ScatterChart from './chart/ScatterChart';
-export AreaChart from './chart/AreaChart';
-export RadialBarChart from './chart/RadialBarChart';
-export ComposedChart from './chart/ComposedChart';
+import LineChart from "./chart/LineChart";
+import BarChart from "./chart/BarChart";
+import PieChart from "./chart/PieChart";
+import Treemap from "./chart/Treemap";
+import Sankey from "./chart/Sankey";
+import RadarChart from "./chart/RadarChart";
+import ScatterChart from "./chart/ScatterChart";
+import AreaChart from "./chart/AreaChart";
+import RadialBarChart from "./chart/RadialBarChart";
+import ComposedChart from "./chart/ComposedChart";
 
-export Funnel from './numberAxis/Funnel';
-export FunnelChart from './chart/FunnelChart';
-export Trapezoid from './shape/Trapezoid';
+import Funnel from "./numberAxis/Funnel";
+import FunnelChart from "./chart/FunnelChart";
+import Trapezoid from "./shape/Trapezoid";
+
+export {
+  Label,
+  LabelList,
+  Customized,
+  Sector,
+  Curve,
+  Rectangle,
+  Polygon,
+  Dot,
+  Cross,
+  Symbols,
+  ReferenceLine,
+  PolarGrid,
+  PolarRadiusAxis,
+  PolarAngleAxis,
+  Pie,
+  RadialBar,
+  Brush,  
+  ReferenceDot,
+  ReferenceArea,
+  CartesianAxis,
+  CartesianGrid,
+  Bar,
+  Surface,
+  BarChart,
+  PieChart,
+  Treemap,
+  Sankey,
+  RadialBarChart,
+  ComposedChart,
+  Legend,
+  Tooltip,
+  Cell,
+  ResponsiveContainer,
+  Layer,
+  Text,
+  Scatter,
+  ScatterChart,
+  AreaChart,
+  Radar,
+  RadarChart,
+  Line,
+  Area,  
+  Funnel,
+  FunnelChart,
+  Trapezoid,
+  XAxis,
+  YAxis,
+  ZAxis,
+  ErrorBar,
+  LineChart
+};

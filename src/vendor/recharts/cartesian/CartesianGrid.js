@@ -8,7 +8,6 @@ import pureRender from '../util/PureRender';
 import { PRESENTATION_ATTRIBUTES, getPresentationAttributes } from '../util/ReactUtils';
 import { isNumber } from '../util/DataUtils';
 
-@pureRender
 class CartesianGrid extends Component {
 
   static displayName = 'CartesianGrid';
@@ -270,4 +269,4 @@ class CartesianGrid extends Component {
   }
 }
 
-export default CartesianGrid;
+export default pureRender(CartesianGrid);

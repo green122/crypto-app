@@ -195,7 +195,6 @@ const squarify = (node, aspectRatio) => {
   return node;
 };
 
-@pureRender
 class Treemap extends Component {
   static displayName = 'Treemap';
 
@@ -665,4 +664,4 @@ class Treemap extends Component {
   }
 }
 
-export default Treemap;
+export default pureRender(Treemap);

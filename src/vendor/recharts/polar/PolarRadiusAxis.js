@@ -1,28 +1,30 @@
 /**
  * @fileOverview The axis of polar coordinate system
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
-import pureRender from '../util/PureRender';
-import Text from '../component/Text';
-import Label from '../component/Label';
-import Layer from '../container/Layer';
-import { PRESENTATION_ATTRIBUTES, EVENT_ATTRIBUTES, getPresentationAttributes,
-  filterEventsOfChild } from '../util/ReactUtils';
-import { polarToCartesian } from '../util/PolarUtils';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import _ from "lodash";
+import pureRender from "../util/PureRender";
+import Text from "../component/Text";
+import Label from "../component/Label";
+import Layer from "../container/Layer";
+import {
+  PRESENTATION_ATTRIBUTES,
+  EVENT_ATTRIBUTES,
+  getPresentationAttributes,
+  filterEventsOfChild
+} from "../util/ReactUtils";
+import { polarToCartesian } from "../util/PolarUtils";
 
-@pureRender
 class PolarRadiusAxis extends Component {
+  static displayName = "PolarRadiusAxis";
 
-  static displayName = 'PolarRadiusAxis';
-
-  static axisType = 'radiusAxis';
+  static axisType = "radiusAxis";
 
   static propTypes = {
     ...PRESENTATION_ATTRIBUTES,
     ...EVENT_ATTRIBUTES,
-    type: PropTypes.oneOf(['number', 'category']),
+    type: PropTypes.oneOf(["number", "category"]),
     cx: PropTypes.number,
     cy: PropTypes.number,
     hide: PropTypes.bool,
@@ -30,46 +32,67 @@ class PolarRadiusAxis extends Component {
 
     angle: PropTypes.number,
     tickCount: PropTypes.number,
-    ticks: PropTypes.arrayOf(PropTypes.shape({
-      value: PropTypes.any,
-      coordinate: PropTypes.number,
-    })),
-    orientation: PropTypes.oneOf(['left', 'right', 'middle']),
+    ticks: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.any,
+        coordinate: PropTypes.number
+      })
+    ),
+    orientation: PropTypes.oneOf(["left", "right", "middle"]),
     axisLine: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     tick: PropTypes.oneOfType([
-      PropTypes.bool, PropTypes.object, PropTypes.element, PropTypes.func,
+      PropTypes.bool,
+      PropTypes.object,
+      PropTypes.element,
+      PropTypes.func
     ]),
     stroke: PropTypes.string,
     tickFormatter: PropTypes.func,
-    domain: PropTypes.arrayOf(PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.oneOf(['auto', 'dataMin', 'dataMax']),
-    ])),
+    domain: PropTypes.arrayOf(
+      PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.oneOf(["auto", "dataMin", "dataMax"])
+      ])
+    ),
     scale: PropTypes.oneOfType([
-      PropTypes.oneOf(['auto', 'linear', 'pow', 'sqrt', 'log', 'identity', 'time',
-        'band', 'point', 'ordinal', 'quantile', 'quantize', 'utc', 'sequential',
-        'threshold']),
-      PropTypes.func,
+      PropTypes.oneOf([
+        "auto",
+        "linear",
+        "pow",
+        "sqrt",
+        "log",
+        "identity",
+        "time",
+        "band",
+        "point",
+        "ordinal",
+        "quantile",
+        "quantize",
+        "utc",
+        "sequential",
+        "threshold"
+      ]),
+      PropTypes.func
     ]),
     allowDataOverflow: PropTypes.bool,
-    allowDuplicatedCategory: PropTypes.bool,
+    allowDuplicatedCategory: PropTypes.bool
   };
 
   static defaultProps = {
-    type: 'number',
+    type: "number",
     radiusAxisId: 0,
     cx: 0,
     cy: 0,
     angle: 0,
-    orientation: 'right',
-    stroke: '#ccc',
+    orientation: "right",
+    stroke: "#ccc",
     axisLine: true,
     tick: true,
     tickCount: 5,
-    domain: [0, 'auto'],
+    domain: [0, "auto"],
     allowDataOverflow: false,
-    scale: 'auto',
-    allowDuplicatedCategory: true,
+    scale: "auto",
+    allowDuplicatedCategory: true
   };
 
   /**
@@ -88,14 +111,14 @@ class PolarRadiusAxis extends Component {
     let textAnchor;
 
     switch (orientation) {
-      case 'left':
-        textAnchor = 'end';
+      case "left":
+        textAnchor = "end";
         break;
-      case 'right':
-        textAnchor = 'start';
+      case "right":
+        textAnchor = "start";
         break;
       default:
-        textAnchor = 'middle';
+        textAnchor = "middle";
         break;
     }
 
@@ -104,35 +127,39 @@ class PolarRadiusAxis extends Component {
 
   getViewBox() {
     const { cx, cy, angle, ticks } = this.props;
-    const maxRadiusTick = _.maxBy(ticks, entry => (entry.coordinate || 0));
-    const minRadiusTick = _.minBy(ticks, entry => (entry.coordinate || 0));
+    const maxRadiusTick = _.maxBy(ticks, entry => entry.coordinate || 0);
+    const minRadiusTick = _.minBy(ticks, entry => entry.coordinate || 0);
 
     return {
-      cx, cy,
+      cx,
+      cy,
       startAngle: angle,
       endAngle: angle,
       innerRadius: minRadiusTick.coordinate || 0,
-      outerRadius: maxRadiusTick.coordinate || 0,
+      outerRadius: maxRadiusTick.coordinate || 0
     };
   }
 
   renderAxisLine() {
     const { cx, cy, angle, ticks, axisLine, ...others } = this.props;
-    const extent = ticks.reduce((result, entry) => [
-      Math.min(result[0], entry.coordinate),
-      Math.max(result[1], entry.coordinate),
-    ], [Infinity, -Infinity]);
+    const extent = ticks.reduce(
+      (result, entry) => [
+        Math.min(result[0], entry.coordinate),
+        Math.max(result[1], entry.coordinate)
+      ],
+      [Infinity, -Infinity]
+    );
     const point0 = polarToCartesian(cx, cy, extent[0], angle);
     const point1 = polarToCartesian(cx, cy, extent[1], angle);
 
     const props = {
       ...getPresentationAttributes(others),
-      fill: 'none',
+      fill: "none",
       ...getPresentationAttributes(axisLine),
       x1: point0.x,
       y1: point0.y,
       x2: point1.x,
-      y2: point1.y,
+      y2: point1.y
     };
 
     return <line className="recharts-polar-radius-axis-line" {...props} />;
@@ -147,10 +174,7 @@ class PolarRadiusAxis extends Component {
       tickItem = option(props);
     } else {
       tickItem = (
-        <Text
-          {...props}
-          className="recharts-polar-radius-axis-tick-value"
-        >
+        <Text {...props} className="recharts-polar-radius-axis-tick-value">
           {value}
         </Text>
       );
@@ -171,11 +195,12 @@ class PolarRadiusAxis extends Component {
         textAnchor,
         transform: `rotate(${90 - angle}, ${coord.x}, ${coord.y})`,
         ...axisProps,
-        stroke: 'none', fill: stroke,
+        stroke: "none",
+        fill: stroke,
         ...customTickProps,
         index: i,
         ...coord,
-        payload: entry,
+        payload: entry
       };
 
       return (
@@ -185,7 +210,9 @@ class PolarRadiusAxis extends Component {
           {...filterEventsOfChild(this.props, entry, i)}
         >
           {this.constructor.renderTickItem(
-            tick, tickProps, tickFormatter ? tickFormatter(entry.value) : entry.value
+            tick,
+            tickProps,
+            tickFormatter ? tickFormatter(entry.value) : entry.value
           )}
         </Layer>
       );
@@ -197,7 +224,9 @@ class PolarRadiusAxis extends Component {
   render() {
     const { ticks, axisLine, tick } = this.props;
 
-    if (!ticks || !ticks.length) { return null; }
+    if (!ticks || !ticks.length) {
+      return null;
+    }
 
     return (
       <Layer className="recharts-polar-radius-axis">
@@ -209,4 +238,4 @@ class PolarRadiusAxis extends Component {
   }
 }
 
-export default PolarRadiusAxis;
+export default pureRender(PolarRadiusAxis);
