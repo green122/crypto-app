@@ -1,23 +1,26 @@
 import React, { useEffect } from "react";
 import { loadListings } from "./store/listings";
 import { connect } from "react-redux";
+import { Route } from 'react-router-dom';
+import { Overview, Liquidity } from './containers';
 
-import Axios from "axios";
+
 
 function App({ listings, loadListings }) {
   useEffect(() => {
     loadListings();
   }, []);
 
-  return <div className="App"></div>;
+  return <div className="App">
+    <Route path="/" exact component={Overview} />
+    <Route path="/liquidity" exact component={Liquidity} />
+  </div>;
 }
 
-const mapStateToProps = ({listings}) => ({
-  listings
-})
+
 
 
 export default connect(
-  mapStateToProps,
+  null,
   { loadListings }
 )(App);
