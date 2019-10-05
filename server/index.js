@@ -12,15 +12,14 @@ const port = 5000;
 app.use(cors());
 
 app.get("/api", (req, res) => {
-  
+  const {start = '1', limit = '50'} = req.query;
   const requestOptions = {
     method: "GET",
     uri:
       "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
     qs: {
-      start: "1",
-      limit: "20",
-      convert: "USD"
+      start,
+      limit,      
     },
     headers: {
       "X-CMC_PRO_API_KEY": "90665b75-b641-432d-80d4-53fea0bb2f30"
