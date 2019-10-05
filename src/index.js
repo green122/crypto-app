@@ -6,20 +6,20 @@ import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import { getStore } from "./store";
 import Axios from "axios";
-import { mapDataCoinMarket } from "./config/configMapping";
+import { coinDataMarket } from "./config/configMapping";
 import { mapFetchedData } from "./utils/mapping";
 
-const config = mapFetchedData(mapDataCoinMarket);
-export const ConfigContext = createContext({ config: mapDataCoinMarket });
+const configMapper = mapFetchedData(coinDataMarket);
+export const ConfigContext = createContext({ config: coinDataMarket });
 
 ReactDOM.render(
   <Provider
     store={getStore({
       client: Axios,
-      config
+      config: configMapper
     })}
   >
-    <ConfigContext.Provider value={{ config: mapDataCoinMarket }}>
+    <ConfigContext.Provider value={{ config: coinDataMarket }}>
       <BrowserRouter>
         <App />
       </BrowserRouter>

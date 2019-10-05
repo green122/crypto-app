@@ -5,7 +5,7 @@ import { getListingsToView } from "../../store/selectors";
 import {injectConfig} from '../../HOC/injectConfig';
 
 export function Overview({ listings, config }) {
-  const configKeys = Object.keys(config);
+  const configKeys = Object.keys(config.mapConfig);
   return <TableListings listings={listings} configKeys={configKeys} />;
 }
 
