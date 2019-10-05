@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Route } from "react-router-dom";
 import { Overview, Liquidity } from "./containers";
 import Navigation from "./components/Navigation/Navigation";
+import MaximumDropdown from "./components/MaximumDropdown/MaximumDropdown";
 
 function App({ loadListings }) {
   useEffect(() => {
@@ -12,7 +13,9 @@ function App({ loadListings }) {
 
   return (
     <div className="App">
-      <Navigation />
+      <Navigation>
+        <MaximumDropdown setMaximum={console.log} />
+      </Navigation>
       <Route path="/" exact component={Overview} />
       <Route path="/liquidity" exact component={Liquidity} />
     </div>
