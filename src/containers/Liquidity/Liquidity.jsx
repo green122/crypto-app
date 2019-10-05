@@ -13,7 +13,7 @@ import {
 import { connect } from "react-redux";
 import { getListings } from "../../store/selectors";
 
-export function Liquidity({ listings }) {
+export function Liquidity({ listings }) {  
   return (
     <ResponsiveContainer width="90%" height={400}>
       <ScatterChart>
@@ -66,7 +66,7 @@ export function TooltipContent({ payload }) {
   );
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => ({
   listings: getListings(state)
 });
 

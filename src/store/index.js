@@ -5,12 +5,18 @@ import fetchMiddleware from "./middleware/fetchMiddleware";
 import handleFetchedData from "./middleware/handleFetchedData";
 import requestMiddleware from "./middleware/requestMiddleware";
 
-export function getStore(client) {
-  
-  const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export function getStore({ client, config }) {
+  const composeEnhancer =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(
-    combineReducers({ listings, filters }),   
-    composeEnhancer(applyMiddleware(fetchMiddleware({ client }), handleFetchedData, requestMiddleware ))
+    combineReducers({ listings, filters }),
+    composeEnhancer(
+      applyMiddleware(
+        fetchMiddleware({ client }),
+        handleFetchedData(config),
+        requestMiddleware
+      )
+    )
   );
   return store;
 }
