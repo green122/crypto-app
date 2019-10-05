@@ -8,7 +8,8 @@ import {
   CartesianGrid,
   Tooltip,
   Legend
-} from "recharts";
+} from "../../vendor/recharts";
+import { connect } from 'react-redux';
 
 const data01 = [
   { x: 100, y: 200, z: 200 },
@@ -27,7 +28,7 @@ const data02 = [
   { x: 210, y: 220, z: 230 }
 ];
 
-export default function Liquidity() {
+export function Liquidity({ listings }) {
   return (
     <ScatterChart
       width={400}
@@ -40,19 +41,24 @@ export default function Liquidity() {
       }}
     >
       <CartesianGrid />
-      <XAxis type="number" dataKey="x" name="stature" unit="cm" />
-      <YAxis type="number" dataKey="y" name="weight" unit="kg" />
+      <XAxis type="number" dataKey="marketCAP" name="stature" unit="cm" />
+      <YAxis type="number" dataKey="volume24" name="weight" unit="kg" />
       <ZAxis
         type="number"
-        dataKey="z"
+        dataKey="priceChange24"
         range={[60, 400]}
         name="score"
         unit="km"
       />
       <Tooltip cursor={{ strokeDasharray: "3 3" }} />
       <Legend />
-      <Scatter name="A school" data={data01} fill="#8884d8" shape="star" />
-      <Scatter name="B school" data={data02} fill="#82ca9d" shape="triangle" />
+      <Scatter name="A school" data={listings} fill="#8884d8" shape="star" />      
     </ScatterChart>
   );
 }
+
+const mapStateToProps = ({ listings }) => ({
+    listings: listings.entries
+  });
+  
+  export default connect(mapStateToProps)(Liquidity);
