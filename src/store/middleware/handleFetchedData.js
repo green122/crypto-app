@@ -8,6 +8,6 @@ export default () => next => action => {
     return next(action);
   }
 
-  const nextPayload = { ...payload, data: payload.data.data.map(mapper) };
+  const nextPayload = payload.data.data.map(mapper);
   return next({ ...action, payload: nextPayload });
 };
