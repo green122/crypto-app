@@ -3,6 +3,7 @@ import { formatter } from "../utils/currencyFormatter";
 export const coinDataMarket = {
   mapConfig: {
     rank: { label: "Rank", getter: "cmc_rank" },
+    slug: { getter: "slug"},
     name: { label: "Name", getter: "name" },
     priceUSD: { label: "Price", getter: ["quote", "USD", "price"], formatter },
     priceChange24: {
