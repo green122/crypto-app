@@ -8,7 +8,7 @@ import Navigation from "./components/Navigation/Navigation";
 import MaximumDropdown from "./components/MaximumDropdown/MaximumDropdown";
 import Pagination from "./components/Pagination/Pagination";
 import { setListingsMaximum } from "./store/filters";
-import './App.css';
+import './App.scss';
 
 function App({ initApp, setListingsMaximum }) {
   useEffect(() => {

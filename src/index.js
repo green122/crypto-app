@@ -11,6 +11,7 @@ import { mapFetchedData } from "./utils/mapping";
 
 const configMapper = mapFetchedData(coinDataMarket);
 export const ConfigContext = createContext({ config: coinDataMarket });
+console.disableYellowBox = true
 
 ReactDOM.render(
   <Provider

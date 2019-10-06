@@ -8,7 +8,7 @@ export default function TableListings({ listings, configKeys }) {
   const headers = configKeys.map(key => listings[0][key].label);
   console.log(headers, listings, configKeys);
   return (
-    <Table unstackable celled>
+    <Table celled>
       <Table.Header>
         <Table.Row>
           {headers.map(header => (

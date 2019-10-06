@@ -7,9 +7,9 @@ export const requestActions = [
   setListingsMaximum.toString()
 ];
 export default ({ dispatch }) => next => action => {
+  next(action);
   const { type } = action;
   if (requestActions.includes(type)) {
     dispatch(loadListings());
   }
-  next(action);
 };

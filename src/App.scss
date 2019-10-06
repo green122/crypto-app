@@ -28,15 +28,55 @@
 }
 
 .tooltip-label {
-  color: #4A4A4A;
-  opacity: 1;  
+  color: #4a4a4a;
+  opacity: 1;
   display: inline;
   font-weight: bold;
   margin-right: 10px;
 }
 
 .tooltip-value {
-  color: #4A4A4A;
+  color: #4a4a4a;
   font-weight: normal;
   display: inline;
+}
+
+.legend {
+  margin: auto;
+  width: 300px;
+}
+
+.legend .wrapper * {
+  p {
+    margin-left: 7px;
+  }
+  * {
+    display: inline-block;
+  }
+}
+
+.positive {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: green;
+}
+.negative {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: red;
+}
+
+.ui.menu {
+  display: flex;
+  flex-wrap: wrap;
+}
+@media (max-width: 450px) {
+  .ui.menu .right.item {
+    margin-right: auto !important;
+    width: 100%;
+
+    
+  }
 }

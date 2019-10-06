@@ -1,13 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Pagination as SemanticPagination, Segment } from "semantic-ui-react";
+import {
+  Pagination as SemanticPagination,
+  Segment,
+  Responsive
+} from "semantic-ui-react";
 import { getAllListings } from "../../store/selectors";
 import { setPage } from "../../store/filters";
 
 export function Pagination({ listingsAmount, setPage }) {
   const totalPages = Math.ceil(listingsAmount / 10);
   const options = {
-    boundaryRange: 3,
     defaultActivePage: 1,
     totalPages
   };
@@ -18,10 +21,11 @@ export function Pagination({ listingsAmount, setPage }) {
   }
   return (
     <Segment>
-      <SemanticPagination
+      <Responsive
+        as={SemanticPagination}
         {...options}
         onPageChange={(_, data) => setPage(data.activePage - 1)}
-      />
+      ></Responsive>
     </Segment>
   );
 }

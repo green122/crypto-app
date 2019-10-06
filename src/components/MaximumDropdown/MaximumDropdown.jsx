@@ -3,8 +3,8 @@ import { Dropdown } from "semantic-ui-react";
 
 const options = [
   { key: "10lim", text: "10", value: 10 },
-  { key: "20lim", text: "20", value: 20 },
-  { key: "all", text: "all", value: 0 }
+  { key: "50lim", text: "50", value: 50 },
+  { key: "all", text: "All", value: 0 }
 ];
 
 export default function MaximumDropdown({ setMaximum }) {
@@ -20,6 +20,7 @@ export default function MaximumDropdown({ setMaximum }) {
     <Dropdown
       placeholder="Select Limit"
       selection
+      fluid
       onChange={onChange}
       options={options}
     />

@@ -1,6 +1,8 @@
 import { createSelector } from "reselect";
 import { mapFetchedDataToView } from "../utils/mapping";
 
+export const getListingsMaximum = state => state.filters.maximum;
+
 export const getAllListings = createSelector(
   state => state.listings,
   listings => listings.entries
