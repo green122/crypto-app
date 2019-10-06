@@ -1,7 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   ScatterChart,
   Scatter,
+  Label,
   Cell,
   XAxis,
   YAxis,
@@ -15,6 +16,7 @@ import { connect } from "react-redux";
 import { getListings } from "../../store/selectors";
 import { injectConfig } from "../../HOC/injectConfig";
 import { mapFetchedDataToView } from "../../utils/mapping";
+import { compose } from "redux";
 
 function abbreviateNumber(value) {
   var newValue = value;
@@ -24,10 +26,9 @@ function abbreviateNumber(value) {
     let shortValue = "";
     for (let precision = 2; precision >= 1; precision--) {
       shortValue = parseFloat(
-        (suffixNum
-          ? value / Math.pow(1000, suffixNum)
-          : value
-        ).toPrecision(precision)
+        (suffixNum ? value / Math.pow(1000, suffixNum) : value).toPrecision(
+          precision
+        )
       );
       const dotLessShortValue = (shortValue + "").replace(
         /[^a-zA-Z 0-9]+/g,
@@ -64,7 +65,7 @@ export function Liquidity({ listings }) {
     zValue: Math.abs(listing.priceChange24) * 100
   }));
   return (
-    <ResponsiveContainer width="90%" height={400}>
+    <ResponsiveContainer width="90%" height={400} className="chart-container">
       <ScatterChart>
         <CartesianGrid />
         <XAxis
@@ -72,15 +73,28 @@ export function Liquidity({ listings }) {
           tickFormatter={abbreviateNumber}
           type="number"
           dataKey="marketCAP"
-          name="market Cap"
-        />
+          name="Market Cap"
+        >
+          <Label position="bottom" style={{ textAnchor: "left" }} offset={20}>
+            Market CAP
+          </Label>
+        </XAxis>
         <YAxis
           domain={["auto", "auto"]}
           tickFormatter={abbreviateNumber}
           type="number"
           dataKey="volume24"
           name="Volume (24h)"
-        />
+        >
+          <Label
+            angle={270}
+            position="left"
+            offset={-5}
+            style={{ textAnchor: "middle" }}
+          >
+            Volume (24h)
+          </Label>
+        </YAxis>
         <ZAxis
           type="number"
           dataKey="zValue"
@@ -132,4 +146,8 @@ const mapStateToProps = (state, props) => ({
   listings: getListings(state)
 });
 
-export default injectConfig(connect(mapStateToProps)(Liquidity));
+export default compose(
+  memo,
+  injectConfig,
+  connect(mapStateToProps)
+)(Liquidity);

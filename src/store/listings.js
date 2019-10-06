@@ -18,10 +18,15 @@ export function loadListings(start, limit) {
 
 export default handleActions(
   {
+    [LOAD_LISTINGS_START]: state => ({...state, loading: true, loaded:false, error: false}),
+    [LOAD_LISTINGS_FAIL]: state => ({...state, loading: false, loaded:false, error: true}),
     [LOAD_LISTINGS_SUCCESS]: (state, action) => ({
       ...state,
-      entries: action.payload
+      entries: action.payload,
+      loading: false,
+      error: false,
+      loaded: true
     })
   },
-  { entries: [] }
+  { entries: [], loading: false, laoded: false, error: false }
 );

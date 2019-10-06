@@ -10,6 +10,11 @@ export const getAllListings = createSelector(
   listings => listings.entries
 );
 
+export const getLoadingStatuses = createSelector(
+  state => state.listings,
+  ({loading, loaded, error}) => ({loading, loaded, error})
+)
+
 export const getListings = createSelector(
   getAllListings,
   getCurrentPage,

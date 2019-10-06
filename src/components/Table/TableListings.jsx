@@ -5,21 +5,23 @@ export default function TableListings({ listings, configKeys }) {
   if (!listings[0]) {
     return null;
   }
-  const headers = configKeys.map(key => listings[0][key].label);
+  const headers = configKeys
+    .filter(key => Boolean(listings[0][key].label))
+    .map(key => listings[0][key].label);
   return (
     <Table celled>
       <Table.Header>
         <Table.Row>
-          {headers.map(header => (
-            <Table.HeaderCell>{header}</Table.HeaderCell>
+          {headers.map((header, index) => (
+            <Table.HeaderCell key={index}>{header}</Table.HeaderCell>
           ))}
         </Table.Row>
       </Table.Header>
       <Table.Body>
         {listings.map(listing => (
-          <Table.Row>
+          <Table.Row key={listing.slug.value}>
             {configKeys.map(key => (
-              <Table.Cell>{listing[key].value}</Table.Cell>
+              listing[key].label && <Table.Cell key={key}>{listing[key].value}</Table.Cell>
             ))}
           </Table.Row>
         ))}
