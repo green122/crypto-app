@@ -89,7 +89,7 @@ export function Liquidity({ listings }) {
           <Label
             angle={270}
             position="left"
-            offset={-5}
+            offset={-2}
             style={{ textAnchor: "middle" }}
           >
             Volume (24h)

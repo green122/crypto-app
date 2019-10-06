@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Small test app React (16.10) + Redux + Reselect + Semantic UI + Recharts
 
 ## Available Scripts
 

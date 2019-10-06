@@ -9,7 +9,7 @@ export const coinDataMarket = {
     priceChange24: {
       label: "Price Change (24h)",
       getter: ["quote", "USD", "percent_change_24h"],
-      formatter: value => value && value.toFixed(2)
+      formatter: value => value && `${value.toFixed(2)}%`
     },
     marketCAP: {
       label: "Market CAP",

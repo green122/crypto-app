@@ -11,7 +11,7 @@ export function loadListings(start, limit) {
     types: [LOAD_LISTINGS_START, LOAD_LISTINGS_SUCCESS, LOAD_LISTINGS_FAIL],
     promise: ({ client }, _, getState) =>
       client.get(`${apiUrl}`, {
-        params: { start, limit: getListingsMaximum(getState()) || 'max' }
+        params: { start, limit: limit || getListingsMaximum(getState()) || 'max' }
       })
   };
 }

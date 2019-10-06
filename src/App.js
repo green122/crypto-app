@@ -17,7 +17,7 @@ function App({ initApp, setListingsMaximum, setTotalOnPage }) {
   }, [initApp]);
 
   return (
-    <Container fluid>
+    <Container>
       <Navigation>
         <TotalOnPageInput setTotalOnPage={setTotalOnPage} />
         <MaximumDropdown setMaximum={setListingsMaximum} />
