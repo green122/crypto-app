@@ -5,13 +5,22 @@ import {
   Segment,
   Responsive
 } from "semantic-ui-react";
-import { getAllListings } from "../../store/selectors";
+import {
+  getAllListings,
+  getTotalOnPage,
+  getCurrentPage
+} from "../../store/selectors";
 import { setPage } from "../../store/filters";
 
-export function Pagination({ listingsAmount, setPage }) {
-  const totalPages = Math.ceil(listingsAmount / 10);
+export function Pagination({
+  listingsAmount,
+  setPage,
+  totalOnPage,
+  currentPage
+}) {
+  const totalPages = Math.ceil(listingsAmount / totalOnPage);
   const options = {
-    defaultActivePage: 1,
+    defaultActivePage: currentPage + 1,
     totalPages
   };
 
@@ -31,7 +40,9 @@ export function Pagination({ listingsAmount, setPage }) {
 }
 
 const mapStateToProps = state => ({
-  listingsAmount: getAllListings(state).length
+  listingsAmount: getAllListings(state).length,
+  totalOnPage: getTotalOnPage(state),
+  currentPage: getCurrentPage(state)
 });
 
 export default connect(

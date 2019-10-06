@@ -2,6 +2,8 @@ import { createSelector } from "reselect";
 import { mapFetchedDataToView } from "../utils/mapping";
 
 export const getListingsMaximum = state => state.filters.maximum;
+export const getCurrentPage = state => state.filters.page;
+export const getTotalOnPage = state => state.filters.totalOnPage;
 
 export const getAllListings = createSelector(
   state => state.listings,
@@ -10,9 +12,10 @@ export const getAllListings = createSelector(
 
 export const getListings = createSelector(
   getAllListings,
-  state => state.filters.page,
-  (listings, page) => {
-    return listings.slice(page * 10, (page + 1) * 10) || [];
+  getCurrentPage,
+  getTotalOnPage,
+  (listings, page, totalOnPage) => {
+    return listings.slice(page * totalOnPage, (page + 1) * totalOnPage) || [];
   }
 );
 
