@@ -12,7 +12,7 @@ import {
   Legend
 } from "../../vendor/recharts";
 import { connect } from "react-redux";
-import { getListings, getListingsToView } from "../../store/selectors";
+import { getListings } from "../../store/selectors";
 import { injectConfig } from "../../HOC/injectConfig";
 import { mapFetchedDataToView } from "../../utils/mapping";
 
@@ -24,7 +24,7 @@ function abbreviateNumber(value) {
     let shortValue = "";
     for (let precision = 2; precision >= 1; precision--) {
       shortValue = parseFloat(
-        (suffixNum != 0
+        (suffixNum
           ? value / Math.pow(1000, suffixNum)
           : value
         ).toPrecision(precision)
@@ -37,7 +37,7 @@ function abbreviateNumber(value) {
         break;
       }
     }
-    if (shortValue % 1 != 0) shortValue = shortValue.toFixed(1);
+    if (shortValue % 1) shortValue = shortValue.toFixed(1);
     newValue = "$" + shortValue + suffixes[suffixNum];
   }
   return newValue;
@@ -100,7 +100,7 @@ export function Liquidity({ listings }) {
             return (
               <Cell
                 key={`cell-${index}`}
-                fill={listing.priceChange24 > 0 ? "green" : "red"}
+                fill={listing.priceChange24 > 0 ? "#78ea7d" : "#ce8287"}
               />
             );
           })}
@@ -130,7 +130,6 @@ export const TooltipContent = injectConfig(TooltipView);
 
 const mapStateToProps = (state, props) => ({
   listings: getListings(state)
-  // listingsToView: getListingsToView(state, props)
 });
 
 export default injectConfig(connect(mapStateToProps)(Liquidity));

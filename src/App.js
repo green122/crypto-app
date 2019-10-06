@@ -7,10 +7,11 @@ import { Overview, Liquidity } from "./containers";
 import Navigation from "./components/Navigation/Navigation";
 import MaximumDropdown from "./components/MaximumDropdown/MaximumDropdown";
 import Pagination from "./components/Pagination/Pagination";
-import { setListingsMaximum } from "./store/filters";
+import { setListingsMaximum, setTotalOnPage } from "./store/filters";
 import './App.scss';
+import TotalOnPageInput from "./components/TotalOnPageInput/TotalOnPageInput";
 
-function App({ initApp, setListingsMaximum }) {
+function App({ initApp, setListingsMaximum, setTotalOnPage }) {
   useEffect(() => {
     initApp();
   }, [initApp]);
@@ -18,6 +19,7 @@ function App({ initApp, setListingsMaximum }) {
   return (
     <Container fluid>
       <Navigation>
+        <TotalOnPageInput setTotalOnPage={setTotalOnPage} />
         <MaximumDropdown setMaximum={setListingsMaximum} />
       </Navigation>
       <Route path="/" exact component={Overview} />
@@ -29,5 +31,5 @@ function App({ initApp, setListingsMaximum }) {
 
 export default connect(
   null,
-  { initApp, setListingsMaximum }
+  { initApp, setListingsMaximum, setTotalOnPage }
 )(App);

@@ -46,7 +46,7 @@
   width: 300px;
 }
 
-.legend .wrapper * {
+.legend .wrapper {
   p {
     margin-left: 7px;
   }
@@ -59,24 +59,28 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: green;
+  background-color: #78ea7d;
 }
 .negative {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: red;
+  background-color: #ce8287;
 }
 
 .ui.menu {
   display: flex;
   flex-wrap: wrap;
 }
-@media (max-width: 450px) {
-  .ui.menu .right.item {
-    margin-right: auto !important;
-    width: 100%;
-
-    
+@media (max-width: 640px) {
+  .ui.menu {
+    .right.item {
+      margin-right: auto !important;
+      width: 100%;
+    }
   }
+}
+
+.filter-wrapper {
+  margin-right: 10px;
 }

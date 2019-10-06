@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 import { Dropdown } from "semantic-ui-react";
 
 const options = [
@@ -8,20 +8,12 @@ const options = [
 ];
 
 export default function MaximumDropdown({ setMaximum }) {
-  const [value, setValue] = useState(options[0].value);
-  const onChange = useCallback(
-    (_, { value }) => {
-      setMaximum(value);
-      setValue(value);
-    },
-    [value]
-  );
   return (
     <Dropdown
       placeholder="Select Limit"
       selection
       fluid
-      onChange={onChange}
+      onChange={(_, { value }) => setMaximum(value)}
       options={options}
     />
   );

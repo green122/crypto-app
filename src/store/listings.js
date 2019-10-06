@@ -6,8 +6,6 @@ export const LOAD_LISTINGS_START = "LOAD_LISTINGS_START";
 export const LOAD_LISTINGS_SUCCESS = "LOAD_LISTINGS_SUCCESS";
 export const LOAD_LISTINGS_FAIL = "LOAD_LISTINGS_FAIL";
 
-const maxListings = 5000;
-
 export function loadListings(start, limit) {
   return {
     types: [LOAD_LISTINGS_START, LOAD_LISTINGS_SUCCESS, LOAD_LISTINGS_FAIL],
