@@ -29,8 +29,9 @@ export function Pagination({
     options.lastItem = null;
   }
   return (
-    <Segment>
+    <Segment className="flex-segment">
       <Responsive
+        className="paginator"
         as={SemanticPagination}
         {...options}
         onPageChange={(_, data) => setPage(data.activePage - 1)}

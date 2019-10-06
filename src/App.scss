@@ -2,10 +2,19 @@
   text-align: center;
 }
 
+.app-container {
+  margin-top: 20px;
+}
+
 .tooltip-container {
   background: rgba(255, 255, 255, 0.7);
   padding: 10px;
   box-shadow: 3px 3px 7px grey;
+}
+
+.flex-segment {
+  display: flex;
+  justify-content: center;
 }
 
 .tooltip-label {
@@ -31,8 +40,12 @@
 }
 
 .legend .wrapper {
+  position: relative;
   p {
     margin-left: 7px;
+    @media (max-width: 640px) {
+      width: 90px;
+    }
   }
   * {
     display: inline-block;
@@ -44,14 +57,24 @@
   height: 10px;
   border-radius: 50%;
   background-color: #78ea7d;
+  position: absolute;
+  left: -5px;
+  top: 6px;
 }
 .negative {
   width: 10px;
   height: 10px;
   border-radius: 50%;
+  position: absolute;
+  left: -5px;
+  top: 6px;
   background-color: #ce8287;
 }
-
+.paginator {
+  @media (max-width: 320px) {
+    width: 90%;
+  }
+}
 .ui.menu {
   display: flex;
   flex-wrap: wrap;

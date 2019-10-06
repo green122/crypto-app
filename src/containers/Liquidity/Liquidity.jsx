@@ -13,8 +13,9 @@ import {
   Legend
 } from "../../vendor/recharts";
 import { connect } from "react-redux";
-import { getListings } from "../../store/selectors";
+import { getListings, getLoadingStatuses } from "../../store/selectors";
 import { injectConfig } from "../../HOC/injectConfig";
+import { Loader } from "semantic-ui-react";
 import { mapFetchedDataToView } from "../../utils/mapping";
 import { compose } from "redux";
 
@@ -59,67 +60,76 @@ const renderLegend = () => {
   );
 };
 
-export function Liquidity({ listings }) {
+export function Liquidity({ listings, statuses }) {
   const mappedListings = listings.map(listing => ({
     ...listing,
     zValue: Math.abs(listing.priceChange24) * 100
   }));
   return (
     <ResponsiveContainer width="90%" height={400} className="chart-container">
-      <ScatterChart>
-        <CartesianGrid />
-        <XAxis
-          domain={["auto", "auto"]}
-          tickFormatter={abbreviateNumber}
-          type="number"
-          dataKey="marketCAP"
-          name="Market Cap"
-        >
-          <Label position="bottom" style={{ textAnchor: "left" }} offset={20}>
-            Market CAP
-          </Label>
-        </XAxis>
-        <YAxis
-          domain={["auto", "auto"]}
-          tickFormatter={abbreviateNumber}
-          type="number"
-          dataKey="volume24"
-          name="Volume (24h)"
-        >
-          <Label
-            angle={270}
-            position="left"
-            offset={-2}
-            style={{ textAnchor: "middle" }}
+      {statuses.loading ? (
+        <Loader active={statuses.loading} />
+      ) : (
+        <ScatterChart margin={{ top: 5, right: 5, bottom: 5, left: 10 }}>
           >
-            Volume (24h)
-          </Label>
-        </YAxis>
-        <ZAxis
-          type="number"
-          dataKey="zValue"
-          domain={["dataMin", "dataMax"]}
-          range={[100, 700]}
-          name="score"
-          unit="km"
-        />
-        <Tooltip
-          active
-          cursor={{ strokeDasharray: "3 3" }}
-          content={<TooltipContent />}
-        />
-        <Legend content={renderLegend} />
-        <Scatter name="Price Change (24h)" data={mappedListings} shape="circle">
-          {mappedListings.map((listing, index) => {
-            return (
-              <Cell
-                key={`cell-${index}`}
-                fill={listing.priceChange24 > 0 ? "#78ea7d" : "#ce8287"}
-              />
-            );
-          })}
-        </Scatter>
-      </ScatterChart>
+          <CartesianGrid />
+          <XAxis
+            domain={["auto", "auto"]}
+            tickFormatter={abbreviateNumber}
+            type="number"
+            dataKey="marketCAP"
+            name="Market Cap"
+          >
+            <Label position="bottom" style={{ textAnchor: "left" }} offset={20}>
+              Market CAP
+            </Label>
+          </XAxis>
+          <YAxis
+            domain={["auto", "auto"]}
+            tickFormatter={abbreviateNumber}
+            type="number"
+            dataKey="volume24"
+            name="Volume (24h)"
+          >
+            <Label
+              angle={270}
+              position="left"
+              offset={5}
+              style={{ textAnchor: "middle" }}
+            >
+              Volume (24h)
+            </Label>
+          </YAxis>
+          <ZAxis
+            type="number"
+            dataKey="zValue"
+            domain={["dataMin", "dataMax"]}
+            range={[100, 700]}
+            name="score"
+            unit="km"
+          />
+          <Tooltip
+            active
+            cursor={{ strokeDasharray: "3 3" }}
+            content={<TooltipContent />}
+          />
+          <Legend content={renderLegend} offset={5} />
+          <Scatter
+            name="Price Change (24h)"
+            data={mappedListings}
+            shape="circle"
+          >
+            {mappedListings.map((listing, index) => {
+              return (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={listing.priceChange24 > 0 ? "#78ea7d" : "#ce8287"}
+                />
+              );
+            })}
+          </Scatter>
+        </ScatterChart>
+      )}
     </ResponsiveContainer>
   );
 }
@@ -143,7 +153,8 @@ export function TooltipView({ payload, config }) {
 export const TooltipContent = injectConfig(TooltipView);
 
 const mapStateToProps = (state, props) => ({
-  listings: getListings(state)
+  listings: getListings(state),
+  statuses: getLoadingStatuses(state)
 });
 
 export default compose(
